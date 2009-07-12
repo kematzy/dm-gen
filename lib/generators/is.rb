@@ -40,7 +40,7 @@ module DMGen
     # glob the template dir for all templates.
     # since we want text files processed, we have to replace the default
     # extension list.
-    glob!('', %w[rb rdoc txt Rakefile LICENSE TODO])
+    glob!('', %w[rb rdoc txt Rakefile LICENSE TODO VERSION])
 
     def manifest_files
       self.all_actions.map {|t| t.destination.gsub(/#{destination_root}\//,'') }.sort
