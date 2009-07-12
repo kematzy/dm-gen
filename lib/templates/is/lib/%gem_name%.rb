@@ -9,12 +9,9 @@ require 'dm-core'
 # Require plugin-files
 require Pathname(__FILE__).dirname.expand_path / '<%= gem_name %>' / 'is' / '<%= snake_name %>.rb'
 
+DataMapper::Model.append_extensions(DataMapper::Is::<%= class_name %>)
 
-# Include the plugin in Resource
-module DataMapper
-  module Resource
-    module ClassMethods
-      include DataMapper::Is::<%= class_name %>
-    end # module ClassMethods
-  end # module Resource
-end # module DataMapper
+# If you wish to add methods to all DM Models, use this:
+# 
+# DataMapper::Model.append_inclusions(DataMapper::Is::<%= class_name %>::ResourceInstanceMethods)
+#
