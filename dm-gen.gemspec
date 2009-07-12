@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{dm-gen}
-  s.version = "0.3.0"
+  s.version = "0.3.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jonathan Stott"]
-  s.date = %q{2009-07-10}
+  s.date = %q{2009-07-12}
   s.default_executable = %q{dm-gen}
   s.description = %q{Simple commandline tool for generating dm models}
   s.email = %q{jonathan.stott@gmail.com}
@@ -38,18 +38,16 @@ Gem::Specification.new do |s|
      "lib/templates/adapter/tasks/spec.rb",
      "lib/templates/is/History.txt",
      "lib/templates/is/LICENSE",
-     "lib/templates/is/Manifest.txt",
-     "lib/templates/is/README.txt",
+     "lib/templates/is/README.rdoc",
      "lib/templates/is/Rakefile",
      "lib/templates/is/TODO",
+     "lib/templates/is/VERSION",
      "lib/templates/is/lib/%gem_name%.rb",
      "lib/templates/is/lib/%gem_name%/is/%snake_name%.rb",
      "lib/templates/is/lib/%gem_name%/is/version.rb",
      "lib/templates/is/spec/integration/%snake_name%_spec.rb",
      "lib/templates/is/spec/spec.opts",
      "lib/templates/is/spec/spec_helper.rb",
-     "lib/templates/is/tasks/install.rb",
-     "lib/templates/is/tasks/spec.rb",
      "lib/templates/one_file.rb",
      "spec/adapter_spec.rb",
      "spec/dm_gen_spec.rb",
@@ -63,11 +61,11 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.4}
   s.summary = %q{Simple commandline tool for generating dm models}
   s.test_files = [
-    "spec/is_plugin_spec.rb",
+    "spec/adapter_spec.rb",
      "spec/dm_gen_spec.rb",
-     "spec/adapter_spec.rb",
-     "spec/spec_helper.rb",
-     "spec/one_file_spec.rb"
+     "spec/is_plugin_spec.rb",
+     "spec/one_file_spec.rb",
+     "spec/spec_helper.rb"
   ]
 
   if s.respond_to? :specification_version then
