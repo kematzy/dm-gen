@@ -33,6 +33,10 @@ module DMGen
       File.join(@destination_root, gem_name)
     end
 
+    def user_name
+      ENV['USER'] || 'USER NAME'
+    end
+    
     # glob the template dir for all templates.
     # since we want text files processed, we have to replace the default
     # extension list.
