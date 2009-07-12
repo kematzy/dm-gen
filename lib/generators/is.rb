@@ -6,10 +6,10 @@ module DMGen
       Generates an 'is' plugin for DataMapper, such as dm-is-list.
 
       Use like
-        dm-gen is plugin
+        dm-gen is plugin 
 
-      This generates the full plugin structure with skeleton code and specs, as
-      well as a Rakefile.  All it needs is a README and some real functionality.
+      This generates the full - dm-is-plugin - plugin structure with skeleton code and specs, 
+      as well as a Rakefile.  All it needs is a README and some real functionality.
 
     eos
 
@@ -36,7 +36,7 @@ module DMGen
     # glob the template dir for all templates.
     # since we want text files processed, we have to replace the default
     # extension list.
-    glob!('', %w[rb txt Rakefile LICENSE TODO])
+    glob!('', %w[rb rdoc txt Rakefile LICENSE TODO])
 
     def manifest_files
       self.all_actions.map {|t| t.destination.gsub(/#{destination_root}\//,'') }.sort
