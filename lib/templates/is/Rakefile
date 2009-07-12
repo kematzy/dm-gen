@@ -1,30 +1,84 @@
-require 'pathname'
 require 'rubygems'
-require 'hoe'
+require 'rake'
 
-ROOT    = Pathname(__FILE__).dirname.expand_path
-JRUBY   = RUBY_PLATFORM =~ /java/
-WINDOWS = Gem.win_platform?
-SUDO    = (WINDOWS || JRUBY) ? '' : ('sudo' unless ENV['SUDOLESS'])
+begin
+  require 'jeweler'
+  Jeweler::Tasks.new do |gem|
+    gem.name = "<%= gem_name %>"
+    # gem.version = IO.read('VERSION')
+    gem.summary = %Q{A DataMapper plugin that...}
+    gem.description = gem.summary
+    gem.email = "kematzy@gmail.com"
+    gem.homepage = "http://github.com/USERNAME/<%= gem_name %>"
+    gem.authors = ["USERNAME"]
+    gem.extra_rdoc_files = %w[ README.rdoc LICENSE TODO History.txt ]
+    gem.add_dependency('dm-core', '>= <%= DMGen::DM_VERSION %>')
+    # gem.add_dependency('dm-validations', '>= <%= DMGen::DM_VERSION %>')
+    
+    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
+  end
 
-require ROOT + 'lib/<%= gem_name %>/is/version'
-
-# define some constants to help with task files
-GEM_NAME    = '<%= gem_name %>'
-GEM_VERSION = DataMapper::Is::<%= class_name %>::VERSION
-
-Hoe.new(GEM_NAME, GEM_VERSION) do |p|
-  p.developer('John Doe', 'john [a] doe [d] com')
-
-  p.description = 'A DataMapper plugin that ...'
-  p.summary = 'A DataMapper plugin that ...'
-  p.url = 'http://github.com/USERNAME/<%= gem_name %>'
-
-  p.clean_globs |= %w[ log pkg coverage ]
-  p.spec_extras = { :has_rdoc => true, :extra_rdoc_files => %w[ README.txt LICENSE TODO History.txt ] }
-
-  p.extra_deps << ['dm-core', "~> <%= DMGen::DM_VERSION"]
-
+rescue LoadError
+  puts "Jeweler (or a dependency) not available. Install it with: sudo gem install jeweler"
 end
 
-Pathname.glob(ROOT.join('tasks/**/*.rb').to_s).each { |f| require f }
+require 'spec/rake/spectask'
+Spec::Rake::SpecTask.new(:spec) do |spec|
+  spec.libs << 'lib' << 'spec'
+  spec.spec_files = FileList['spec/**/*_spec.rb']
+end
+
+Spec::Rake::SpecTask.new(:rcov) do |spec|
+  spec.libs << 'lib' << 'spec'
+  spec.pattern = 'spec/**/*_spec.rb'
+  spec.rcov = true
+end
+
+namespace :spec do
+
+  desc "Run all specifications verbosely"
+  Spec::Rake::SpecTask.new(:verbose) do |t|
+    t.libs << "lib"
+    t.spec_opts = ["--color", "--format", "specdoc", "--require", "spec/spec_helper.rb"]
+  end
+  
+  desc "Run specific spec verbosely (SPEC=/path/2/file)"
+  Spec::Rake::SpecTask.new(:select) do |t|
+    t.libs << "lib"
+    t.spec_files = [ENV["SPEC"]]
+    t.spec_opts = ["--color", "--format", "specdoc", "--require", "spec/spec_helper.rb"] 
+  end
+  
+end
+
+task :default => :spec
+
+require 'rake/rdoctask'
+Rake::RDocTask.new do |rdoc|
+  if File.exist?('VERSION')
+    version = IO.read('VERSION').chomp
+  else
+    version = "[Unknown]"
+  end
+
+  rdoc.rdoc_dir = 'rdoc'
+  rdoc.title = "<%= gem_name %> #{version}"
+  rdoc.rdoc_files.include('README*')
+  rdoc.rdoc_files.include('lib/**/*.rb')
+end
+
+# kept just as a reference for now. 
+# 
+# def sudo_gem(cmd)
+#   sh "#{SUDO} #{RUBY} -S gem #{cmd}", :verbose => false
+# end
+# 
+# desc "Install #{GEM_NAME} #{GEM_VERSION}"
+# task :install => [ :package ] do
+#   sudo_gem "install --local pkg/#{GEM_NAME}-#{GEM_VERSION} --no-update-sources"
+# end
+# 
+# desc "Uninstall #{GEM_NAME} #{GEM_VERSION}"
+# task :uninstall => [ :clobber ] do
+#   sudo_gem "uninstall #{GEM_NAME} -v#{GEM_VERSION} -Ix"
+# end
