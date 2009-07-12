@@ -8,7 +8,7 @@ begin
     # gem.version = IO.read('VERSION')
     gem.summary = %Q{A DataMapper plugin that...}
     gem.description = gem.summary
-    gem.email = "kematzy@gmail.com"
+    gem.email = "USERNAME EMAIL"
     gem.homepage = "http://github.com/USERNAME/<%= gem_name %>"
     gem.authors = ["USERNAME"]
     gem.extra_rdoc_files = %w[ README.rdoc LICENSE TODO History.txt ]
